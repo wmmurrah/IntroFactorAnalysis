@@ -1,0 +1,11 @@
+------Begin Mplus Model Run: 16Jun2013 13:43:23------
+Target directory: /home/wmmurrah/RStudioProjects/Rtutorials/IntroFactorAnalysis/lessons/lesson3_CFAbasics
+Run options:
+	Recursive (run models in subdirectories): FALSE
+	Show output on console: FALSE
+	Replace existing outfile: always
+------
+Currently running model: fimlfa.inp
+Currently running model: mpcfa.inp
+
+------End Mplus Model Run: 16Jun2013 13:43:23------

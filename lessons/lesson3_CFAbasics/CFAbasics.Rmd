@@ -1,0 +1,52 @@
+Confirmatory Factor Analysis: Basics
+========================================================
+
+## Basic CFA in Lavaan
+
+```{r data, echo=FALSE, comment=NA, message=FALSE }
+library(lavaan)
+library(MplusAutomation)
+library(xtable)
+data(HolzingerSwineford1939)
+df <- HolzingerSwineford1939
+```
+
+```{r lavaanCFA, results='asis', message=TRUE}
+hs.model <- '
+visual  =~ x1 + x2 + x3
+textual =~ x4 + x5 + x6
+speed   =~ x7 + x8 + x9 
+'
+lfit <- cfa(hs.model,data=df)
+summary(lfit,fit.measures=TRUE,rsquare=TRUE)
+```
+
+## Basic CFA in Mplus
+
+```{r mplusCFA, results='asis', message=TRUE}
+hs.mpob <- mplusObject(TITLE="basic mplus CFA",
+                       MODEL="visual  by x1 x2 x3;
+                              textual by x4 x5 x6;
+                              speed   by x7 x8 x9;",
+                       usevariables=c("x1","x2","x3",
+                                      "x4","x5","x6",
+                                      "x7","x8","x9"),
+                       rdata=df
+                       )
+mpcfa <- mplusModeler(hs.mpob,dataout='mpcfa.dat',
+             modelout='mpcfa.inp',run=1L)
+ms <- extractModelSummaries(mpcfa)
+LatexSummaryTable(ms)
+```
+
+
+```{r mplusmissing}
+miss.obs <- mplusObject(TITLE="FIML mplus CFA", 
+                       MODEL="esteem BY s1 s2 s3 s4;
+                              s2 with s4;",
+                       usevariables=c("s1","s2","s3","s4"),
+                       rdata=Data
+                       )
+misscfa <- mplusModeler(miss.obs,dataout='fimlcfa.dat',
+             modelout='fimlfa.inp',run=1L)
+```

@@ -1,0 +1,17 @@
+library(lavaan);
+data<- ... ;
+ onyx.model<-"
+! regressions 
+   z ~ 1.0*x
+   y ~ 1.0*z
+! residuals, variances and covariances
+   x ~~ x
+   z ~~ z
+   y ~~ y
+! means
+   x~0*1;
+   z~0*1;
+   y~0*1;
+";
+fit<-lavaan(onyx.model, );
+summary(fit, fit.measures=TRUE);
